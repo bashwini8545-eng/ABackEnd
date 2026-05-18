@@ -32,8 +32,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@Valid @RequestBody User user) {
-        User saved = userService.create(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        try {
+            User saved = userService.create(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping
